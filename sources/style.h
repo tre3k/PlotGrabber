@@ -11,11 +11,6 @@
 #include <QPalette>
 #include <QPainter>
 
-#define C_DARK_COLOR "#535353"
-#define C_LIGHT_COLOR "#fcfcfc"
-#define C_LIGHT_TEXT "#212121"
-#define C_DARK_TEXT "#ececec"
-
 namespace Styles{
 // base styles
 enum BaseStyle{
@@ -24,7 +19,7 @@ enum BaseStyle{
 
 // second styles
 enum SecondStyle{
-    STYLE_BLUE,STYLE_GREEN,STYLE_RED,STLYE_ORANGE
+    STYLE_BLUE,STYLE_GREEN,STYLE_RED,STYLE_ORANGE
 };
 
 class Style{
@@ -36,6 +31,11 @@ private:
     QColor button_border_color;
     QColor button_color;
     QColor button_color_alpha;
+
+    QPixmap button_close_pixmap;
+
+    QColor top_panel_background;
+    QColor top_panel_border_color;
 
 
 public:
@@ -67,6 +67,11 @@ public:
     QColor buttonColorAlpha(void){return button_color_alpha;}
     QColor buttonBorderColor(void){return button_border_color;}
     int buttonBorder(void){return button_border;}
+
+    QPixmap buttonColosePixmap(void){return button_close_pixmap;}
+
+    QColor topPanelBackgroud(void){return top_panel_background;}
+    QColor topPanelBorderColor(void){return top_panel_border_color;}
 
 };
 

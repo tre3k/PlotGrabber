@@ -31,6 +31,9 @@ TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, 
     RingButton *rb1 = new RingButton();
     RingButton *rb2 = new RingButton();
     RingButton *closeButton = new RingButton();
+    closeButton->setPixmap(iface->getStyle()->buttonColosePixmap());
+
+    connect(closeButton,SIGNAL(release()),iface->main_window,SLOT(closeApplication()));
 
     layout->addWidget(rb1);
     layout->addWidget(rb2);
@@ -42,11 +45,10 @@ TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, 
 void TopPanel::paintEvent(QPaintEvent *e){
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing,false);
-    //painter.setPen(style.getPen());
     QPen pen;
-    pen.setColor("#525252");
+    pen.setColor(iface->getStyle()->topPanelBorderColor());
     painter.setPen(pen);
-    QBrush brush(QColor("#fcfcfc"));
+    QBrush brush(iface->getStyle()->topPanelBackgroud());
     painter.setBrush(brush);
 
     painter.drawRect(-1,-1,width()+1,height()-1);
@@ -67,8 +69,9 @@ RingButton::RingButton(If::Interface *_iface, QWidget *parent){
     p_animation = new QPropertyAnimation(this,"color");
     p_animation->setDuration(300);
 
-    layout->setAlignment(Qt::AlignHCenter);
-    label = new QLabel("b");
+    layout->setAlignment(Qt::AlignVCenter);
+    label = new QLabel("+");
+    label->setAlignment(Qt::AlignHCenter);
     layout->addWidget(label);
 
     this->setMinimumHeight(50);
@@ -85,7 +88,8 @@ void RingButton::paintEvent(QPaintEvent *e){
     painter.setRenderHint(QPainter::Antialiasing,true);
     painter.setPen(_pen);
     painter.setBrush(_brush);
-    painter.drawEllipse(2,2,44,44);
+    painter.drawEllipse(4,4,42,42);
+    //painter.drawRect(QRect(4,4,42,42));
 
     QWidget::paintEvent(e);
 }
@@ -114,6 +118,7 @@ bool RingButton::eventFilter(QObject *watched, QEvent *event){
         case QEvent::MouseButtonRelease:
             _pen.setStyle(Qt::NoPen);
             repaint();
+            emit release();
             break;
         }
     }

@@ -8,6 +8,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QApplication>
 #include <QMainWindow>
 #include <QWidget>
 #include <QLayout>
@@ -21,6 +22,9 @@ public:
     ~MainWindow(void);
 
 private:
+
+public slots:
+    void closeApplication(void){QApplication::quit();}
 
 };
 
@@ -36,6 +40,7 @@ public:
 
         top_panel->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Maximum);
         image_widget->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding);
+
 
 
         layout->setMargin(0);

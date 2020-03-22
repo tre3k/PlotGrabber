@@ -6,6 +6,7 @@
  */
 
 #include <QWidget>
+#include <QToolTip>
 #include <QVector>
 #include <QPainter>
 #include <QHBoxLayout>
@@ -85,6 +86,12 @@ namespace Widgets {
 
     signals:
         void clicked(void);
+        void release(void);
+
+    public slots:
+        void setPixmap(QPixmap pixmap){
+            label->setPixmap(pixmap);
+        }
 
     };
 
