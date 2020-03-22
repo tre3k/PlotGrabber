@@ -17,6 +17,8 @@ int main(int argc,char **argv){
         QApplication q_application(argc, argv);
 
         MainWindow *main_window = new MainWindow(nullptr);
+        main_window->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+        main_window->setWindowTitle("PlotGrabber");
         main_window->show();
 
         return q_application.exec();

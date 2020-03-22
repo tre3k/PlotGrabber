@@ -16,7 +16,8 @@ void Style::update(){
         top_panel_border_color = QColor("#b2b2b2");
 
         button_close_pixmap = QPixmap(":/icons/close_button_dark.svg");
-        button_close_pixmap = button_close_pixmap.scaled(28,28,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+        button_setting_pixmap = QPixmap(":/icons/sett_button_dark.svg");
+        button_open_pixmap = QPixmap(":/icons/open_button_dark.svg");
 
         break;
 
@@ -25,8 +26,8 @@ void Style::update(){
         top_panel_border_color = QColor("#b2b2b2");
 
         button_close_pixmap = QPixmap(":/icons/close_button_light.svg");
-        button_close_pixmap = button_close_pixmap.scaled(28,28,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-
+        button_setting_pixmap = QPixmap(":/icons/sett_button_light.svg");
+        button_open_pixmap = QPixmap(":/icons/open_button_light.svg");
 
         break;
     }
@@ -57,6 +58,7 @@ void Style::update(){
         break;
     }
 
-
-
+    button_close_pixmap = button_close_pixmap.scaled(28,28,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    button_setting_pixmap = button_setting_pixmap.scaled(28,28,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    button_open_pixmap = button_open_pixmap.scaled(28,28,Qt::KeepAspectRatio,Qt::SmoothTransformation);
 }

@@ -9,7 +9,7 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     If::Interface *interface = new If::Interface();
-    Styles::Style *style = new Styles::Style(Styles::STYLE_LIGHT,Styles::STYLE_ORANGE);
+    Styles::Style *style = new Styles::Style(Styles::STYLE_LIGHT,Styles::STYLE_GREEN);
     style->update();
 
     interface->setStyle(style);

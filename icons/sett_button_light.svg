@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="sett_button_light.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="115.83562"
+     inkscape:cy="75.496844"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1918"
+     inkscape:window-height="1048"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid815" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-97)">
+    <path
+       style="fill:#16baa6;fill-opacity:1;fill-rule:evenodd;stroke:#323232;stroke-width:34.01574707;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       d="M 325.74414 6.1621094 L 325.74414 68.619141 C 284.02335 76.569793 244.38636 93.020879 209.29688 116.94922 L 165.0625 72.716797 L 83.5625 154.2207 L 127.59375 198.25 C 103.69485 233.41159 87.295487 273.11992 79.417969 314.89844 L 17.007812 314.89844 L 17.007812 430.16016 L 79.462891 430.16016 C 87.413505 471.881 103.86463 511.5199 127.79297 546.60938 L 83.5625 590.83984 L 165.0625 672.3418 L 209.09375 628.3125 C 244.25661 652.2106 283.96479 668.60822 325.74414 676.48438 L 325.74414 738.89844 L 441.00586 738.89844 L 441.00586 676.43945 C 482.7264 668.48975 522.36534 652.04053 557.45508 628.11328 L 601.68555 672.3418 L 683.1875 590.83984 L 639.1582 546.80859 C 663.05593 511.6467 679.45347 471.93845 687.33008 430.16016 L 749.74414 430.16016 L 749.74414 314.89844 L 687.28516 314.89844 C 679.33549 273.17786 662.88619 233.54091 638.95898 198.45117 L 683.1875 154.2207 L 601.68555 72.716797 L 557.6543 116.74805 C 522.49244 92.850396 482.78408 76.45083 441.00586 68.574219 L 441.00586 6.1621094 L 325.74414 6.1621094 z M 383.375 274.53516 A 97.99499 97.99499 0 0 1 481.37109 372.5293 A 97.99499 97.99499 0 0 1 383.375 470.52539 A 97.99499 97.99499 0 0 1 285.38086 372.5293 A 97.99499 97.99499 0 0 1 383.375 274.53516 z "
+       transform="matrix(0.26458333,0,0,0.26458333,0,97)"
+       id="path836" />
+  </g>
+</svg>

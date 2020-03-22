@@ -33,6 +33,8 @@ private:
     QColor button_color_alpha;
 
     QPixmap button_close_pixmap;
+    QPixmap button_setting_pixmap;
+    QPixmap button_open_pixmap;
 
     QColor top_panel_background;
     QColor top_panel_border_color;
@@ -69,6 +71,8 @@ public:
     int buttonBorder(void){return button_border;}
 
     QPixmap buttonColosePixmap(void){return button_close_pixmap;}
+    QPixmap buttonSettingPixmap(void){return button_setting_pixmap;}
+    QPixmap buttonOpenPixmap(void){return button_open_pixmap;}
 
     QColor topPanelBackgroud(void){return top_panel_background;}
     QColor topPanelBorderColor(void){return top_panel_border_color;}

@@ -2,5 +2,9 @@
     <qresource prefix="/icons">
         <file alias="close_button_light.svg">icons/close_button_light.svg</file>
         <file alias="close_button_dark.svg">icons/close_button_dark.svg</file>
+        <file alias="sett_button_dark.svg">icons/sett_button_dark.svg</file>
+        <file alias="sett_button_light.svg">icons/sett_button_light.svg</file>
+        <file alias="open_button_dark.svg">icons/open_button_dark.svg</file>
+        <file alias="open_button_light.svg">icons/open_button_light.svg</file>
     </qresource>
 </RCC>

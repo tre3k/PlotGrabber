@@ -28,17 +28,19 @@ TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, 
 
     iface->top_widget = this;
 
-    RingButton *rb1 = new RingButton();
-    RingButton *rb2 = new RingButton();
-    RingButton *closeButton = new RingButton();
-    closeButton->setPixmap(iface->getStyle()->buttonColosePixmap());
+    RingButton *open_button = new RingButton();
+    open_button->setPixmap(iface->getStyle()->buttonOpenPixmap());
+    RingButton *sett_button = new RingButton();
+    sett_button->setPixmap(iface->getStyle()->buttonSettingPixmap());
+    RingButton *close_button = new RingButton();
+    close_button->setPixmap(iface->getStyle()->buttonColosePixmap());
 
-    connect(closeButton,SIGNAL(release()),iface->main_window,SLOT(closeApplication()));
+    connect(close_button,SIGNAL(release()),iface->main_window,SLOT(closeApplication()));
 
-    layout->addWidget(rb1);
-    layout->addWidget(rb2);
+    layout->addWidget(open_button);
+    layout->addWidget(sett_button);
     layout->addStretch();
-    layout->addWidget(closeButton);
+    layout->addWidget(close_button);
 
 }
 
@@ -119,6 +121,10 @@ bool RingButton::eventFilter(QObject *watched, QEvent *event){
             _pen.setStyle(Qt::NoPen);
             repaint();
             emit release();
+            break;
+
+        default:
+            // just for minimisate warnings at the moment compilation
             break;
         }
     }
