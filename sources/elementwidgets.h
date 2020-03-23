@@ -250,6 +250,7 @@ class ImageWidget : public BaseWidget{
 private:
     QPixmap _pixmap;
     Darwings::Cursor cursor;
+    Darwings::TopRightBorder top_right_border;
 
 public:
     ImageWidget(If::Interface *_iface = nullptr, QWidget *parent = nullptr);

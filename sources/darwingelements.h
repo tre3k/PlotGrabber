@@ -23,7 +23,7 @@ public:
         _wd->update();
     }
     // only for paintEvent
-    virtual void paint(QPainter *p){};
+    virtual void paint(QPainter *p) = 0;
     qreal getX(void){return _x;}
     qreal getY(void){return _y;}
 };
@@ -45,10 +45,25 @@ public:
         p->drawText(_x+2,_wd->height(),QString::number(_x));
         p->drawText(0,_y-2,QString::number(_y));
     }
-    void setPenPoint(QPen _pen){pen_point = _pen;}
-    void setPenLine(QPen _pen){pen_line = _pen;}
+    void setPenPoint(QPen pen){pen_point = pen;}
+    void setPenLine(QPen pen){pen_line = pen;}
 };
 
+class TopRightBorder : public Abstract{
+private:
+    QPen pen_line;
+    QBrush _brush;
+public:
+    TopRightBorder(Widgets::BaseWidget *wd = nullptr) : Abstract(wd) {}
+    void setPenLine(QPen pen){pen_line = pen;}
+    void setBrush(QBrush brush){_brush = brush;}
+    void paint(QPainter *p){
+        p->setPen(pen_line);
+        p->drawLine(_x,_y,_x,_wd->height());
+        p->drawLine(0,_y,_x,_y);
+    }
 
+
+};
 
 }

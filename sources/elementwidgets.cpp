@@ -246,7 +246,9 @@ ImageWidget::ImageWidget(If::Interface *_iface, QWidget *parent) : BaseWidget(_i
     setFocusPolicy(Qt::ClickFocus);         // for keys from keyboard
 
     cursor = Darwings::Cursor(this);
-    cursor.setPos(width()/2,height()/2);
+    cursor.setPos(width()/2,height()/2);            // default
+    top_right_border = Darwings::TopRightBorder(this);
+    top_right_border.setPos(100,200);
 
     updateDarwingElements();
     connect(iface,SIGNAL(updated()),this,SLOT(updateDarwingElements()));
@@ -262,9 +264,11 @@ void ImageWidget::paintEvent(QPaintEvent *e){
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing,true);
 
-    painter.drawPixmap(0,0,width()+100,height()+100,_pixmap);
+    //painter.drawPixmap(0,0,width()+100,height()+100,_pixmap);
+    painter.drawPixmap(0,0,width(),height(),_pixmap);
 
     cursor.paint(&painter);
+    top_right_border.paint(&painter);
 
     QWidget::paintEvent(e);
 }
@@ -328,14 +332,19 @@ bool ImageWidget::eventFilter(QObject *watched, QEvent *event){
 }
 
 void ImageWidget::updateDarwingElements(){
-    QPen pen_line;
-    QPen pen_point;
+    /* for cursor */
+    QPen cursor_pen_line;
+    QPen cursor_pen_point;
+    cursor_pen_point.setWidth(5);
+    cursor_pen_line.setStyle(Qt::DashLine);
+    cursor_pen_point.setColor("red");
+    cursor.setPenLine(cursor_pen_line);
+    cursor.setPenPoint(cursor_pen_point);
 
-    pen_point.setWidth(5);
-    pen_line.setStyle(Qt::DashLine);
+    /* top_right */
+    QPen top_right_pen;
+    top_right_pen.setColor("black");
+    top_right_pen.setWidth(1);
+    top_right_border.setPenLine(top_right_pen);
 
-    pen_point.setColor("red");
-
-    cursor.setPenLine(pen_line);
-    cursor.setPenPoint(pen_point);
 }
