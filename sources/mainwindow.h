@@ -30,6 +30,7 @@ public:
 private:
     Effects::Glass *glass_widget;
     Dialogs::Settings *settings_dialog;
+    If::Interface *interface;
 
 protected:
     void paintEvent(QPaintEvent *e);
@@ -47,6 +48,11 @@ public slots:
     }
     void hideSettings(int result){
         hideGlass();
+    }
+    void updatePalette(void){
+        this->setPalette(interface->getStyle()->getPalette());
+        settings_dialog->setPalette(interface->getStyle()->getPalette());
+        this->update();
     }
 
 };

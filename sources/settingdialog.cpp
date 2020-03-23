@@ -10,6 +10,10 @@
 using namespace Dialogs;
 
 Settings::Settings(If::Interface *iface, QWidget *parent) : QDialog(parent){
+    this->setWindowTitle("Settings");
+    connect(this,SIGNAL(Accepted()),iface,SLOT(update()));
+    _iface = iface;
+
     auto layout = new QVBoxLayout();
     this->setLayout(layout);
 
@@ -32,5 +36,15 @@ Settings::Settings(If::Interface *iface, QWidget *parent) : QDialog(parent){
 
 
 void Settings::Accept(){
+    if(_iface->settings.light_dark){
+        _iface->getStyle()->setBaseStyle(Styles::STYLE_LIGHT);
+        _iface->settings.light_dark = false;
+    }else{
+        _iface->getStyle()->setBaseStyle(Styles::STYLE_DARK);
+        _iface->settings.light_dark = true;
+    }
+    _iface->getStyle()->setSecondStyle(_iface->settings.second_style);
+
+    emit Accepted();
     this->close();
 }

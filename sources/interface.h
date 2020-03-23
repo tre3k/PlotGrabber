@@ -12,14 +12,17 @@
 
 #include "style.h"
 
+#include <QDebug>
+
 namespace If {
 
-class Interface{
+class Interface : public QObject{
+    Q_OBJECT
 private:
     Styles::Style *style;
 
 public:
-    Interface(){}
+    Interface(QObject *parent = nullptr) : QObject(parent){}
     void setStyle(Styles::Style *_style){
         style = _style;
     }
@@ -28,6 +31,21 @@ public:
     QWidget *main_window = nullptr;
     QWidget *top_widget = nullptr;
     QWidget *main_widget = nullptr;
+
+    struct s_settings{
+        bool light_dark {false};
+        Styles::SecondStyle second_style {Styles::STYLE_BLUE};
+    } settings;
+
+public slots:
+    void update(){
+        qDebug() << "Iface update!\n";
+        style->update();
+        emit updated();
+    }
+
+signals:
+    void updated();
 
 };
 

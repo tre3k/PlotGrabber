@@ -48,6 +48,7 @@ signals:
 public slots:
     void setPixmap(QPixmap pixmap){
         label->setPixmap(pixmap);
+        update();
     }
 };
 
@@ -56,6 +57,11 @@ class RingCancelButton : public RingButton{
 public:
     RingCancelButton(If::Interface *_iface = nullptr, QWidget *parent = nullptr)
     : RingButton(_iface, parent){
+        reloadPixmap();
+        connect(iface,SIGNAL(updated()),this,SLOT(reloadPixmap()));
+    }
+public slots:
+    void reloadPixmap(void){
         this->setPixmap(iface->getStyle()->buttonColosePixmap());
     }
 };
@@ -65,9 +71,21 @@ class RingAcceptButton : public RingButton{
 public:
     RingAcceptButton(If::Interface *_iface = nullptr, QWidget *parent = nullptr)
     : RingButton(_iface, parent){
+        reloadPixmap();
+        connect(iface,SIGNAL(updated()),this,SLOT(reloadPixmap()));
+    }
+public slots:
+    void reloadPixmap(void){
         this->setPixmap(iface->getStyle()->buttonAcceptPixmap());
     }
 };
+
+
+/* TOGGLE BUTTON */
+class ToggleButton : public BaseWidget{
+
+};
+
 
 /* TOP PANEL */
 class TopPanel : public BaseWidget{
@@ -75,7 +93,16 @@ class TopPanel : public BaseWidget{
 public:
     TopPanel(If::Interface *_iface = nullptr, QWidget *parent = nullptr);
 private:
+    RingButton *open_button;
+    RingButton *sett_button;
+    QLabel *filename_label;
     void paintEvent(QPaintEvent *e);
+
+public slots:
+    void updatePixmapsOnButtons(void);
+    void setFileNameLabel(QString filename){
+        filename_label->setText("<h4>"+filename+"</h4>");
+    }
 };
 
 }

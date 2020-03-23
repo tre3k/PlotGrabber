@@ -14,10 +14,14 @@
 namespace Dialogs {
     class Settings : public QDialog{
         Q_OBJECT
+    private:
+        If::Interface *_iface;
     public:
         Settings(If::Interface *iface = nullptr,QWidget *parent = nullptr);
 
     public slots:
         void Accept(void);
+    signals:
+        void Accepted(void);
     };
 }

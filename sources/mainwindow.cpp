@@ -8,10 +8,9 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
-    If::Interface *interface = new If::Interface();
-    Styles::Style *style = new Styles::Style(Styles::STYLE_DARK,Styles::STYLE_GREEN);
+    interface = new If::Interface();
+    Styles::Style *style = new Styles::Style(Styles::STYLE_LIGHT,Styles::STYLE_GREEN);
     style->update();
-    this->setPalette(style->getPalette());
 
     interface->setStyle(style);
     interface->main_window = this;
@@ -28,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     settings_dialog = new Dialogs::Settings(interface);
     settings_dialog->setPalette(style->getPalette());
     connect(settings_dialog,SIGNAL(finished(int)),this,SLOT(hideSettings(int)));
+
+    updatePalette();
+    connect(interface,SIGNAL(updated()),this,SLOT(updatePalette()));
 }
 
 MainWindow::~MainWindow(){

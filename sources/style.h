@@ -11,6 +11,8 @@
 #include <QPalette>
 #include <QPainter>
 
+#include <QDebug>
+
 namespace Styles{
 // base styles
 enum BaseStyle{
@@ -47,6 +49,7 @@ private:
 public:
     Style(BaseStyle _base_style,SecondStyle _second_style): base_style{_base_style},second_style {_second_style}{}
     Style(SecondStyle _second_style): second_style {_second_style}{}
+    Style(BaseStyle _base_style): base_style {_base_style}{}
     Style(Style& _style): base_style {_style.baseStyle()}, second_style {_style.seconStyle()}{}
     Style& operator=(Style _style){
         base_style = _style.baseStyle();
@@ -66,6 +69,21 @@ public:
     BaseStyle baseStyle(void){return base_style;}
     SecondStyle seconStyle(void){return second_style;}
 
+
+    void setStyles(BaseStyle _base_style,SecondStyle _second_style){
+        base_style = {_base_style};
+        second_style = {_second_style};
+        update();
+    }
+
+    void setBaseStyle(BaseStyle _base_style){
+        base_style = {_base_style};
+    }
+
+    void setSecondStyle(SecondStyle _second_style){
+        second_style = {_second_style};
+    }
+
     void update(void);
 
 public:
@@ -83,6 +101,11 @@ public:
 
     QColor topPanelBackgroud(void){return top_panel_background;}
     QColor topPanelBorderColor(void){return top_panel_border_color;}
+
+    QVector<QColor> secondStylesColors = {QColor("#4d4696"),                // BLUE
+                                          QColor("#4d9646"),                // GREEN
+                                          QColor("#96464d"),                // RED
+                                          QColor("#db7d32")};               // ORANGE
 
 };
 

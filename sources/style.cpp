@@ -21,7 +21,9 @@ void Style::update(){
         button_accept_pixmap = QPixmap(":/icons/accept_button_dark.svg");
 
         palette.setColor(QPalette::WindowText,"#fcfcfc");
-        palette.setColor(QPalette::Window,"#525252");
+        palette.setColor(QPalette::Window,"#424242");
+
+        qDebug() << "Dark style!\n";
 
         break;
 
@@ -37,14 +39,25 @@ void Style::update(){
         palette.setColor(QPalette::WindowText,"#222222");
         palette.setColor(QPalette::Window,"#e7e7e7");
 
+        qDebug() << "Light style!\n";
+
         break;
     }
 
     switch(second_style){
     case STYLE_GREEN:
+        /*
         button_color_alpha = QColor("#004d9646");
         button_color = QColor("#ac4d9646");
         button_border_color = QColor("#ff4d9646");
+        */
+
+        button_color = secondStylesColors.at(second_style);
+        button_color_alpha = button_color;
+        button_border_color = button_color;
+        button_color.setAlpha(0xac);
+        button_color_alpha.setAlpha(0x00);
+
         break;
 
     case STYLE_BLUE:
@@ -70,4 +83,6 @@ void Style::update(){
     button_setting_pixmap = button_setting_pixmap.scaled(28,28,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     button_open_pixmap = button_open_pixmap.scaled(28,28,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     button_accept_pixmap = button_accept_pixmap.scaled(28,28,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+
+
 }

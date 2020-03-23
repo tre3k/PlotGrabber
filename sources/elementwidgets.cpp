@@ -9,48 +9,6 @@
 
 using namespace Widgets;
 
-/* TOP PANEL WIDGET */
-TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, parent){
-    this->setMinimumHeight(50);
-    auto layout = new QHBoxLayout(this);
-    layout->setMargin(0);
-    layout->setSpacing(0);
-
-    iface->top_widget = this;
-
-    RingButton *open_button = new RingButton();
-    open_button->setPixmap(iface->getStyle()->buttonOpenPixmap());
-    RingButton *sett_button = new RingButton();
-    sett_button->setPixmap(iface->getStyle()->buttonSettingPixmap());
-    /*
-    RingButton *close_button = new RingButton();
-    close_button->setPixmap(iface->getStyle()->buttonColosePixmap());
-    */
-    //connect(close_button,SIGNAL(release()),iface->main_window,SLOT(closeApplication()));
-
-    connect(sett_button,SIGNAL(release()),iface->main_window,SLOT(showSettings()));
-
-    layout->addWidget(open_button);
-    layout->addWidget(sett_button);
-    layout->addStretch();
-    //layout->addWidget(close_button);
-}
-
-void TopPanel::paintEvent(QPaintEvent *e){
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing,false);
-    QPen pen;
-    pen.setColor(iface->getStyle()->topPanelBorderColor());
-    painter.setPen(pen);
-    QBrush brush(iface->getStyle()->topPanelBackgroud());
-    painter.setBrush(brush);
-
-    painter.drawRect(-1,-1,width()+1,height()-1);
-
-    QWidget::paintEvent(e);
-}
-
-
 /* RING BUTTON */
 RingButton::RingButton(If::Interface *_iface, QWidget *parent) : BaseWidget(parent){
     auto layout = new QVBoxLayout(this);
@@ -112,6 +70,54 @@ bool RingButton::eventFilter(QObject *watched, QEvent *event){
             break;
         }
     }
-
     return QWidget::eventFilter(watched, event);
 }
+
+
+/* TOP PANEL WIDGET */
+TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, parent){
+    this->setMinimumHeight(50);
+    auto layout = new QHBoxLayout(this);
+
+    filename_label = new QLabel();
+
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
+    iface->top_widget = this;
+
+    open_button = new RingButton();
+    sett_button = new RingButton();
+    updatePixmapsOnButtons();
+
+    connect(sett_button,SIGNAL(release()),iface->main_window,SLOT(showSettings()));
+
+    layout->addWidget(open_button);
+    layout->addWidget(sett_button);
+    layout->addWidget(filename_label);
+    layout->addStretch();
+
+    connect(iface,SIGNAL(updated()),this,SLOT(updatePixmapsOnButtons()));
+
+    setFileNameLabel("Filename.123");
+}
+
+void TopPanel::updatePixmapsOnButtons(){
+    open_button->setPixmap(iface->getStyle()->buttonOpenPixmap());
+    sett_button->setPixmap(iface->getStyle()->buttonSettingPixmap());
+}
+
+void TopPanel::paintEvent(QPaintEvent *e){
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing,false);
+    QPen pen;
+    pen.setColor(iface->getStyle()->topPanelBorderColor());
+    painter.setPen(pen);
+    QBrush brush(iface->getStyle()->topPanelBackgroud());
+    painter.setBrush(brush);
+
+    painter.drawRect(-1,-1,width()+1,height()-1);
+
+    QWidget::paintEvent(e);
+}
+
