@@ -21,7 +21,7 @@ enum BaseStyle{
 
 // second styles
 enum SecondStyle{
-    STYLE_BLUE,STYLE_GREEN,STYLE_RED,STYLE_ORANGE
+    STYLE_GRAY,STYLE_BLUE,STYLE_GREEN,STYLE_RED,STYLE_ORANGE
 };
 
 class Style{
@@ -32,10 +32,13 @@ private:
 
     QPalette palette;
 
-    int button_border = 2;
+    int button_border = 3;
     QColor button_border_color;
     QColor button_color;
     QColor button_color_alpha;
+
+    QColor back_color;
+    QColor front_color;
 
     QPixmap button_close_pixmap;
     QPixmap button_setting_pixmap;
@@ -99,14 +102,17 @@ public:
     QPixmap buttonOpenPixmap(void){return button_open_pixmap;}
     QPixmap buttonAcceptPixmap(void){return button_accept_pixmap;}
 
+    QColor frontColor(void){return front_color;}
+    QColor backColor(void){return back_color;}
+
     QColor topPanelBackgroud(void){return top_panel_background;}
     QColor topPanelBorderColor(void){return top_panel_border_color;}
 
-    QVector<QColor> secondStylesColors = {QColor("#4d4696"),                // BLUE
+    QVector<QColor> secondStylesColors = {QColor("#808080"),                // Gray
+                                          QColor("#6d66f6"),                // BLUE
                                           QColor("#4d9646"),                // GREEN
                                           QColor("#96464d"),                // RED
                                           QColor("#db7d32")};               // ORANGE
-
 };
 
 }

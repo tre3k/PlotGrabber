@@ -16,11 +16,18 @@ namespace Dialogs {
         Q_OBJECT
     private:
         If::Interface *_iface;
+
+        Widgets::ToggleButton *toggle_night_mode;
     public:
         Settings(If::Interface *iface = nullptr,QWidget *parent = nullptr);
 
     public slots:
         void Accept(void);
+        void SwitchNightMode(bool mode);
+        void ChangeColor(int second_style){
+            _iface->getStyle()->setSecondStyle((Styles::SecondStyle)second_style);
+            emit Accepted();
+        }
     signals:
         void Accepted(void);
     };

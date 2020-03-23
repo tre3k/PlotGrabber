@@ -32,12 +32,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     connect(interface,SIGNAL(updated()),this,SLOT(updatePalette()));
 }
 
-MainWindow::~MainWindow(){
-
-}
-
-void MainWindow::paintEvent(QPaintEvent *e){
 
 
-    QMainWindow::paintEvent(e);
+void MainWindow::openImage(){
+    QFileDialog fd;
+    fd.setPalette(interface->getStyle()->getPalette());
+    fd.getOpenFileName();
 }

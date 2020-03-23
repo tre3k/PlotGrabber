@@ -29,21 +29,39 @@ Settings::Settings(If::Interface *iface, QWidget *parent) : QDialog(parent){
     button_layout->addWidget(accept_button);
     button_layout->addWidget(close_button);
 
-    layout->addWidget(new QLabel("asdsadsa"));
+    auto night_mode_layout = new QHBoxLayout();
+    toggle_night_mode = new Widgets::ToggleButton();
+    connect(toggle_night_mode,SIGNAL(stateChanged(bool)),this,SLOT(SwitchNightMode(bool)));
+    night_mode_layout->addWidget(new QLabel("Night mode: "));
+    night_mode_layout->addStretch();
+    night_mode_layout->addWidget(toggle_night_mode);
+
+    auto color_buttons = new Widgets::ColorRingButtons();
+    connect(color_buttons,SIGNAL(numChanged(int)),this,SLOT(ChangeColor(int)));
+    auto color_button_layout = new QHBoxLayout();
+    color_button_layout->addWidget(new QLabel("Color: "));
+    color_button_layout->addStretch();
+    color_button_layout->addWidget(color_buttons);
+
+    layout->addLayout(night_mode_layout);
+    layout->addLayout(color_button_layout);
     layout->addStretch();
     layout->addLayout(button_layout);
 }
 
-
-void Settings::Accept(){
+void Settings::SwitchNightMode(bool mode){
+    _iface->settings.light_dark = !mode;
     if(_iface->settings.light_dark){
         _iface->getStyle()->setBaseStyle(Styles::STYLE_LIGHT);
-        _iface->settings.light_dark = false;
     }else{
         _iface->getStyle()->setBaseStyle(Styles::STYLE_DARK);
-        _iface->settings.light_dark = true;
     }
-    _iface->getStyle()->setSecondStyle(_iface->settings.second_style);
+
+    emit Accepted();
+}
+
+
+void Settings::Accept(){
 
     emit Accepted();
     this->close();

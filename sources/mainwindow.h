@@ -12,6 +12,7 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QLayout>
+#include <QFileDialog>
 
 #include "style.h"
 #include "glass.h"
@@ -25,7 +26,7 @@ class MainWindow : public QMainWindow{
     Q_OBJECT
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow(void);
+    ~MainWindow(){}
 
 private:
     Effects::Glass *glass_widget;
@@ -33,7 +34,7 @@ private:
     If::Interface *interface;
 
 protected:
-    void paintEvent(QPaintEvent *e);
+
 
 public slots:
     void closeApplication(void){QApplication::quit();}
@@ -54,6 +55,8 @@ public slots:
         settings_dialog->setPalette(interface->getStyle()->getPalette());
         this->update();
     }
+
+    void openImage(void);
 
 };
 

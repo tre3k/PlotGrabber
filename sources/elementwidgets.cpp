@@ -34,7 +34,9 @@ void RingButton::paintEvent(QPaintEvent *e){
     painter.setRenderHint(QPainter::Antialiasing,true);
     painter.setPen(_pen);
     painter.setBrush(_brush);
-    painter.drawEllipse(4,4,42,42);
+    //painter.drawEllipse(4,4,42,42);
+    constexpr int diameter = 42;
+    painter.drawEllipse(width()/2-diameter/2,height()/2-diameter/2,diameter,diameter);
     QWidget::paintEvent(e);
 }
 
@@ -73,6 +75,120 @@ bool RingButton::eventFilter(QObject *watched, QEvent *event){
     return QWidget::eventFilter(watched, event);
 }
 
+/* Color Ring Button */
+ColorRingButton::ColorRingButton(If::Interface *_iface, QWidget *parent) : BaseWidget(parent){
+    this->installEventFilter(this);
+    this->setMinimumSize(diameter+iface->getStyle()->buttonBorder()+1,
+                         diameter+iface->getStyle()->buttonBorder()+1);
+    _pen.setStyle(Qt::NoPen);
+}
+
+void ColorRingButton::paintEvent(QPaintEvent *e){
+    QPainter painter(this);
+
+    painter.setRenderHint(QPainter::Antialiasing,true);
+    _pen.setWidth(iface->getStyle()->buttonBorder());
+    _pen.setColor(iface->getStyle()->buttonBorderColor());
+    painter.setPen(_pen);
+    painter.setBrush(_brush);
+    painter.drawEllipse(width()/2-diameter/2,height()/2-diameter/2,diameter,diameter);
+
+    QWidget::paintEvent(e);
+}
+
+bool ColorRingButton::eventFilter(QObject *watched, QEvent *event){
+    if(watched==this){
+        switch(event->type()){
+        case QEvent::MouseButtonPress:
+            setChecked(!_state);
+            break;
+        default:
+            // just for minimisate warnings at the moment compilation
+            break;
+        }
+    }
+    return QWidget::eventFilter(watched, event);
+}
+
+
+/* Color Ring Buttons! */
+ColorRingButtons::ColorRingButtons(If::Interface *_iface, QWidget *parent) : BaseWidget(parent){
+    auto layout = new QHBoxLayout(this);
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
+    for(auto color : iface->getStyle()->secondStylesColors){
+        color.setAlpha(0xac);
+        buttons.append(new ColorRingButton());
+        buttons.last()->setBrush(QColor(color));
+        layout->addWidget(buttons.last());
+        states.append(buttons.last()->getState());
+        connect(buttons.last(),SIGNAL(stateChanged(bool)),this,SLOT(buttonSelected(bool)));
+    }
+
+    this->setButtonSelect(iface->getStyle()->seconStyle());
+}
+
+
+/* TOGGLE BUTTON */
+ToggleButton::ToggleButton(If::Interface *_iface, QWidget *parent) : BaseWidget(parent){
+    this->installEventFilter(this);
+    this->setMinimumHeight(backgroud_height+8);
+    this->setMinimumWidth(backgroud_width+8);
+    p_animation = new QPropertyAnimation(this,"cpos");
+    p_animation->setDuration(200);
+    setState(_state);
+
+    connect(iface,SIGNAL(updated()),this,SLOT(update()));
+
+    _circle_pen.setWidth(4);
+    _back_pen.setStyle(Qt::NoPen);
+}
+
+void ToggleButton::paintEvent(QPaintEvent *e){
+    QPainter painter(this);
+    const int background_pos_x = width()/2-backgroud_width/2;
+    const int background_pos_y = height()/2-backgroud_height/2;
+    painter.setRenderHint(QPainter::Antialiasing,true);
+
+    if(_state){
+        _circle_pen.setColor(iface->getStyle()->buttonBorderColor());
+        _circle_brush = QBrush(iface->getStyle()->backColor());
+        _back_brush = QBrush(iface->getStyle()->buttonBorderColor());
+    }else{
+        _circle_pen.setColor(iface->getStyle()->frontColor());
+        _circle_brush = QBrush(iface->getStyle()->backColor());
+        _back_brush = QBrush(iface->getStyle()->frontColor());
+    }
+
+
+    painter.setBrush(_back_brush);
+    painter.setPen(_back_pen);
+    painter.drawRoundedRect(background_pos_x,background_pos_y,backgroud_width,backgroud_height,backgroud_height/2,backgroud_height/2);
+
+    painter.setBrush(_circle_brush);
+    painter.setPen(_circle_pen);
+    painter.drawEllipse(background_pos_x-2+backgroud_width*_circle_position/2,background_pos_y-2,backgroud_height+4,backgroud_height+4);
+
+    QWidget::paintEvent(e);
+}
+
+bool ToggleButton::eventFilter(QObject *watched, QEvent *event){
+    if(watched==this){
+        switch(event->type()){
+        case QEvent::MouseButtonPress:
+            p_animation->stop();
+            setState(!_state);
+            emit stateChanged(_state);
+            break;
+        default:
+            // just for minimisate warnings at the moment compilation
+            break;
+        }
+    }
+
+    return QWidget::eventFilter(watched, event);
+}
 
 /* TOP PANEL WIDGET */
 TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, parent){
@@ -87,10 +203,10 @@ TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, 
     iface->top_widget = this;
 
     open_button = new RingButton();
+    connect(open_button,SIGNAL(release()),iface->main_window,SLOT(openImage()));
     sett_button = new RingButton();
-    updatePixmapsOnButtons();
-
     connect(sett_button,SIGNAL(release()),iface->main_window,SLOT(showSettings()));
+    updatePixmapsOnButtons();
 
     layout->addWidget(open_button);
     layout->addWidget(sett_button);
