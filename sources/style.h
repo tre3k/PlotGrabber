@@ -23,6 +23,7 @@ enum SecondStyle{
 };
 
 class Style{
+
 private:
     BaseStyle base_style {STYLE_LIGHT};             //default values
     SecondStyle second_style {STYLE_BLUE};
@@ -37,6 +38,7 @@ private:
     QPixmap button_close_pixmap;
     QPixmap button_setting_pixmap;
     QPixmap button_open_pixmap;
+    QPixmap button_accept_pixmap;
 
     QColor top_panel_background;
     QColor top_panel_border_color;
@@ -77,6 +79,7 @@ public:
     QPixmap buttonColosePixmap(void){return button_close_pixmap;}
     QPixmap buttonSettingPixmap(void){return button_setting_pixmap;}
     QPixmap buttonOpenPixmap(void){return button_open_pixmap;}
+    QPixmap buttonAcceptPixmap(void){return button_accept_pixmap;}
 
     QColor topPanelBackgroud(void){return top_panel_background;}
     QColor topPanelBorderColor(void){return top_panel_border_color;}

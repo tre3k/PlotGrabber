@@ -6,5 +6,7 @@
         <file alias="sett_button_light.svg">icons/sett_button_light.svg</file>
         <file alias="open_button_dark.svg">icons/open_button_dark.svg</file>
         <file alias="open_button_light.svg">icons/open_button_light.svg</file>
+        <file alias="accept_button_light.svg">icons/accept_button_light.svg</file>
+        <file alias="accept_button_dark.svg">icons/accept_button_dark.svg</file>
     </qresource>
 </RCC>

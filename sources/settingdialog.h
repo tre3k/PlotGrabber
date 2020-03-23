@@ -18,6 +18,6 @@ namespace Dialogs {
         Settings(If::Interface *iface = nullptr,QWidget *parent = nullptr);
 
     public slots:
-        //void Accept(void);
+        void Accept(void);
     };
 }

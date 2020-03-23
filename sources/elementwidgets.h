@@ -51,7 +51,6 @@ public slots:
     }
 };
 
-
 class RingCancelButton : public RingButton{
     Q_OBJECT
 public:
@@ -59,7 +58,15 @@ public:
     : RingButton(_iface, parent){
         this->setPixmap(iface->getStyle()->buttonColosePixmap());
     }
+};
 
+class RingAcceptButton : public RingButton{
+    Q_OBJECT
+public:
+    RingAcceptButton(If::Interface *_iface = nullptr, QWidget *parent = nullptr)
+    : RingButton(_iface, parent){
+        this->setPixmap(iface->getStyle()->buttonAcceptPixmap());
+    }
 };
 
 /* TOP PANEL */
