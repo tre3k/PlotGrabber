@@ -49,9 +49,18 @@ public slots:
     void setPixmap(QPixmap pixmap){
         label->setPixmap(pixmap);
     }
-
 };
 
+
+class RingCancelButton : public RingButton{
+    Q_OBJECT
+public:
+    RingCancelButton(If::Interface *_iface = nullptr, QWidget *parent = nullptr)
+    : RingButton(_iface, parent){
+        this->setPixmap(iface->getStyle()->buttonColosePixmap());
+    }
+
+};
 
 /* TOP PANEL */
 class TopPanel : public BaseWidget{

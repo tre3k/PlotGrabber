@@ -10,8 +10,10 @@
 
 #include "mainwindow.h"
 
+/* static variable */
 If::Interface* Widgets::BaseWidget::iface = nullptr;
 
+/* Entry point */
 int main(int argc,char **argv){
     try{
         QApplication q_application(argc, argv);

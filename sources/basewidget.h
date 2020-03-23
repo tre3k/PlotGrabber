@@ -22,13 +22,11 @@
 
 
 namespace Widgets {
-
-    //static If::Interface BaseWidget::_iface;
-
     class BaseWidget : public QWidget{
         Q_OBJECT
     public:
         BaseWidget(If::Interface *_iface = nullptr, QWidget *parent = nullptr);
+        BaseWidget(QWidget *parent = nullptr) : QWidget(parent){}
         ~BaseWidget(void);
 
     protected:

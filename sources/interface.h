@@ -27,7 +27,7 @@ public:
 
     QWidget *main_window = nullptr;
     QWidget *top_widget = nullptr;
-    QWidget *image_widget = nullptr;
+    QWidget *main_widget = nullptr;
 
 };
 

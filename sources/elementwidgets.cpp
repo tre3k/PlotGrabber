@@ -22,17 +22,18 @@ TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, 
     open_button->setPixmap(iface->getStyle()->buttonOpenPixmap());
     RingButton *sett_button = new RingButton();
     sett_button->setPixmap(iface->getStyle()->buttonSettingPixmap());
+    /*
     RingButton *close_button = new RingButton();
     close_button->setPixmap(iface->getStyle()->buttonColosePixmap());
+    */
+    //connect(close_button,SIGNAL(release()),iface->main_window,SLOT(closeApplication()));
 
-    connect(close_button,SIGNAL(release()),iface->main_window,SLOT(closeApplication()));
-    connect(open_button,SIGNAL(release()),iface->main_window,SLOT(showGlass()));
+    connect(sett_button,SIGNAL(release()),iface->main_window,SLOT(showSettings()));
 
     layout->addWidget(open_button);
     layout->addWidget(sett_button);
     layout->addStretch();
-    layout->addWidget(close_button);
-
+    //layout->addWidget(close_button);
 }
 
 void TopPanel::paintEvent(QPaintEvent *e){
@@ -51,7 +52,7 @@ void TopPanel::paintEvent(QPaintEvent *e){
 
 
 /* RING BUTTON */
-RingButton::RingButton(If::Interface *_iface, QWidget *parent){
+RingButton::RingButton(If::Interface *_iface, QWidget *parent) : BaseWidget(parent){
     auto layout = new QVBoxLayout(this);
     p_animation = new QPropertyAnimation(this,"color");
     p_animation->setDuration(300);

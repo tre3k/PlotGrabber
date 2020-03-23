@@ -9,7 +9,7 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     If::Interface *interface = new If::Interface();
-    Styles::Style *style = new Styles::Style(Styles::STYLE_LIGHT,Styles::STYLE_BLUE);
+    Styles::Style *style = new Styles::Style(Styles::STYLE_LIGHT,Styles::STYLE_RED);
     style->update();
     this->setPalette(style->getPalette());
 
@@ -20,9 +20,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
 
     this->setCentralWidget(central_widget);
 
-    gls = new Effects::Glass(this);
-    gls->setVisible(false);
-    gls->setDuration(100);
+    glass_widget = new Effects::Glass(this);
+    glass_widget->setVisible(false);
+    glass_widget->setDuration(100);
+
+
+    settings_dialog = new Dialogs::Settings(interface);
+    settings_dialog->setPalette(style->getPalette());
+    connect(settings_dialog,SIGNAL(finished(int)),this,SLOT(hideSettings(int)));
 }
 
 MainWindow::~MainWindow(){
