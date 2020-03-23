@@ -5,6 +5,10 @@
  *
  */
 
+#ifndef BASEWIDGET_H
+#define BASEWIDGET_H
+
+
 #include <QWidget>
 #include <QToolTip>
 #include <QVector>
@@ -16,7 +20,6 @@
 
 #include "interface.h"
 
-#include <QDebug>
 
 namespace Widgets {
 
@@ -38,64 +41,8 @@ namespace Widgets {
     };
 
 
-    /* TOP PANEL */
-    class TopPanel : public BaseWidget{
-        Q_OBJECT
-    public:
-        TopPanel(If::Interface *_iface = nullptr, QWidget *parent = nullptr);
-    private:
-        void paintEvent(QPaintEvent *e);
-    };
-
-    /* MAIN WIDGET */
-    class MainWidget : public BaseWidget{
-        Q_OBJECT
-    public:
-        MainWidget(If::Interface *_iface = nullptr,QWidget *parent = nullptr);
-    };
-
-
-    /* RING BUTTON */
-    class RingButton : public BaseWidget{
-        Q_OBJECT
-        Q_PROPERTY(QColor color READ getColor WRITE setColor)
-    public:
-        RingButton(If::Interface *_iface = nullptr,QWidget *parent = nullptr);
-        QColor getColor(void){return _brush.color();}
-        void setColor(QColor b){
-            _brush = QBrush(b);
-            this->repaint();
-        }
-
-    private:
-        QLabel *label;
-        QPen _pen;
-        QBrush _brush;
-
-    protected:
-        QPropertyAnimation *p_animation;
-
-        void paintEvent(QPaintEvent *e);
-        bool eventFilter(QObject *watched, QEvent *event);
-
-        void mouseEnter(QColor from,QColor to){
-            p_animation->setStartValue(from);
-            p_animation->setEndValue(to);
-            p_animation->start();
-        }
-
-    signals:
-        void clicked(void);
-        void release(void);
-
-    public slots:
-        void setPixmap(QPixmap pixmap){
-            label->setPixmap(pixmap);
-        }
-
-    };
 
 }
 
-
+#endif
 

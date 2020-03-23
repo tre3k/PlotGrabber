@@ -13,9 +13,10 @@
 #include <QWidget>
 #include <QLayout>
 
-#include "basewidget.h"
 #include "style.h"
 #include "glass.h"
+#include "elementwidgets.h"
+#include "mainwidget.h"
 
 class MainWindow : public QMainWindow{
     Q_OBJECT

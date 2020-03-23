@@ -14,7 +14,7 @@ Glass::Glass(QWidget *parent) : QWidget(parent){
     _parent = parent;
 
     p_animation = new QPropertyAnimation(this,"opacity");
-    p_animation->setDuration(700);
+    p_animation->setDuration(_duration);
 }
 
 

@@ -19,6 +19,8 @@ private:
     qreal _opacity = 0.0;
     QPropertyAnimation *p_animation;
 
+    int _duration = 400;
+
 public:
     Glass(QWidget *parent = nullptr);
     void setOpacity(qreal opacity){
@@ -27,6 +29,10 @@ public:
     }
     qreal getOpacity(void){
         return _opacity;
+    }
+    void setDuration(int duration){
+        _duration = duration;
+        p_animation->setDuration(duration);
     }
 
 protected:
