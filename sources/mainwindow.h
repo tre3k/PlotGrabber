@@ -12,8 +12,10 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QLayout>
+
 #include "basewidget.h"
 #include "style.h"
+#include "glass.h"
 
 class MainWindow : public QMainWindow{
     Q_OBJECT
@@ -22,12 +24,17 @@ public:
     ~MainWindow(void);
 
 private:
+    Effects::Glass *gls;
+
+protected:
+    void paintEvent(QPaintEvent *e);
 
 public slots:
     void closeApplication(void){QApplication::quit();}
+    void showGlass(void){gls->startShow();}
+    void hideGlass(void){gls->endShow();}
 
 };
-
 
 namespace Widgets {
 class CentralWidget : public BaseWidget{
@@ -36,18 +43,19 @@ public:
     CentralWidget(If::Interface *_iface = nullptr, QWidget *parent = nullptr){
         auto layout = new QVBoxLayout(this);
         auto top_panel = new TopPanel(_iface);
-        auto image_widget = new ImageWidget(_iface);
+        auto main_widget = new MainWidget(_iface);
 
         top_panel->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Maximum);
-        image_widget->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding);
-
-
+        main_widget->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding);
 
         layout->setMargin(0);
         layout->setSpacing(0);
 
         layout->addWidget(top_panel);
-        layout->addWidget(image_widget);
+        layout->addWidget(main_widget);
+
+
+
     }
 };
 

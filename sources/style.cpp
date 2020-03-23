@@ -13,11 +13,14 @@ void Style::update(){
     switch(base_style){
     case STYLE_DARK:
         top_panel_background = QColor("#323232");
-        top_panel_border_color = QColor("#b2b2b2");
+        top_panel_border_color = QColor("#a2a2a2");
 
         button_close_pixmap = QPixmap(":/icons/close_button_dark.svg");
         button_setting_pixmap = QPixmap(":/icons/sett_button_dark.svg");
         button_open_pixmap = QPixmap(":/icons/open_button_dark.svg");
+
+        palette.setColor(QPalette::WindowText,"#fcfcfc");
+        palette.setColor(QPalette::Window,"#525252");
 
         break;
 
@@ -28,6 +31,9 @@ void Style::update(){
         button_close_pixmap = QPixmap(":/icons/close_button_light.svg");
         button_setting_pixmap = QPixmap(":/icons/sett_button_light.svg");
         button_open_pixmap = QPixmap(":/icons/open_button_light.svg");
+
+        palette.setColor(QPalette::WindowText,"#222222");
+        palette.setColor(QPalette::Window,"#e7e7e7");
 
         break;
     }

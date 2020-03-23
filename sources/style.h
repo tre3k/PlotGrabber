@@ -27,6 +27,8 @@ private:
     BaseStyle base_style {STYLE_LIGHT};             //default values
     SecondStyle second_style {STYLE_BLUE};
 
+    QPalette palette;
+
     int button_border = 2;
     QColor button_border_color;
     QColor button_color;
@@ -65,6 +67,8 @@ public:
     void update(void);
 
 public:
+    QPalette getPalette(void){return palette;}
+
     QColor buttonColor(void){return button_color;}
     QColor buttonColorAlpha(void){return button_color_alpha;}
     QColor buttonBorderColor(void){return button_border_color;}

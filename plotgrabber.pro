@@ -9,12 +9,14 @@ SOURCES =   sources/main.cpp \
             sources/mainwindow.cpp \
             sources/basewidget.cpp \
             sources/style.cpp \
-            sources/interface.cpp
+            sources/interface.cpp \
+            sources/glass.cpp
 
 HEADERS =   sources/mainwindow.h \
             sources/basewidget.h \
             sources/style.h \
-            sources/interface.h
+            sources/interface.h \
+            sources/glass.h
 
 RESOURCES += \
     resources.qrc

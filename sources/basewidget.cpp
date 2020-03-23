@@ -36,6 +36,7 @@ TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, 
     close_button->setPixmap(iface->getStyle()->buttonColosePixmap());
 
     connect(close_button,SIGNAL(release()),iface->main_window,SLOT(closeApplication()));
+    connect(open_button,SIGNAL(release()),iface->main_window,SLOT(showGlass()));
 
     layout->addWidget(open_button);
     layout->addWidget(sett_button);
@@ -59,9 +60,13 @@ void TopPanel::paintEvent(QPaintEvent *e){
 }
 
 
-/* IMAGE WIDGET */
-ImageWidget::ImageWidget(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, parent){
-
+/* MAIN WIDGET */
+MainWidget::MainWidget(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, parent){
+    auto label = new QLabel("test");
+    label->setAlignment(Qt::AlignVCenter);
+    auto layout = new QVBoxLayout(this);
+    layout->setAlignment(Qt::AlignHCenter);
+    layout->addWidget(label);
 }
 
 

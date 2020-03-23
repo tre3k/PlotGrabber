@@ -9,8 +9,9 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     If::Interface *interface = new If::Interface();
-    Styles::Style *style = new Styles::Style(Styles::STYLE_LIGHT,Styles::STYLE_GREEN);
+    Styles::Style *style = new Styles::Style(Styles::STYLE_DARK,Styles::STYLE_BLUE);
     style->update();
+    this->setPalette(style->getPalette());
 
     interface->setStyle(style);
     interface->main_window = this;
@@ -19,8 +20,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
 
     this->setCentralWidget(central_widget);
 
+    gls = new Effects::Glass(this);
+    gls->setVisible(false);
 }
 
 MainWindow::~MainWindow(){
 
+}
+
+void MainWindow::paintEvent(QPaintEvent *e){
+
+
+    QMainWindow::paintEvent(e);
 }

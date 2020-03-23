@@ -47,12 +47,13 @@ namespace Widgets {
         void paintEvent(QPaintEvent *e);
     };
 
-    /* IMAGE WIDGET */
-    class ImageWidget : public BaseWidget{
+    /* MAIN WIDGET */
+    class MainWidget : public BaseWidget{
         Q_OBJECT
     public:
-        ImageWidget(If::Interface *_iface = nullptr,QWidget *parent = nullptr);
+        MainWidget(If::Interface *_iface = nullptr,QWidget *parent = nullptr);
     };
+
 
     /* RING BUTTON */
     class RingButton : public BaseWidget{
@@ -63,7 +64,6 @@ namespace Widgets {
         QColor getColor(void){return _brush.color();}
         void setColor(QColor b){
             _brush = QBrush(b);
-            qDebug() << "brush: "<< _brush;
             this->repaint();
         }
 
