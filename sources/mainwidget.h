@@ -15,8 +15,12 @@ namespace Widgets {
 /* MAIN WIDGET */
 class MainWidget : public BaseWidget{
     Q_OBJECT
+private:
+
 public:
     MainWidget(If::Interface *_iface = nullptr,QWidget *parent = nullptr);
+public slots:
+
 };
 
 

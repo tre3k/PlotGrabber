@@ -20,6 +20,7 @@ int main(int argc,char **argv){
 
         MainWindow *main_window = new MainWindow(nullptr);
         //main_window->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+        main_window->setGeometry(0,0,600,400);
         main_window->setWindowTitle("PlotGrabber");
         main_window->show();
 

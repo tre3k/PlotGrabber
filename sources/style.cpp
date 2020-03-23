@@ -13,7 +13,7 @@ void Style::update(){
     switch(base_style){
     case STYLE_DARK:
         top_panel_background = QColor("#323232");
-        top_panel_border_color = QColor("#a2a2a2");
+        top_panel_border_color = QColor("#626262");
 
         button_close_pixmap = QPixmap(":/icons/close_button_dark.svg");
         button_setting_pixmap = QPixmap(":/icons/sett_button_dark.svg");

@@ -9,8 +9,11 @@
 #define ELEMENTWIDGETS_H
 
 #include <QFileInfo>
+#include <QEvent>
+#include <QMouseEvent>
 
 #include "basewidget.h"
+#include "darwingelements.h"
 
 namespace Widgets {
 
@@ -239,6 +242,31 @@ public slots:
         filename_label->setText("<h4>"+QFileInfo(filename).fileName()+"</h4>");
     }
 };
+
+
+/* IMAGE WIDGET */
+class ImageWidget : public BaseWidget{
+    Q_OBJECT
+private:
+    QPixmap _pixmap;
+    Darwings::Cursor cursor;
+
+public:
+    ImageWidget(If::Interface *_iface = nullptr, QWidget *parent = nullptr);
+
+public slots:
+    void setImage(QString filename);
+    void updateDarwingElements(void);
+
+protected:
+    void paintEvent(QPaintEvent *e);
+    bool eventFilter(QObject *watched, QEvent *event);
+    void mousePressEvent(QMouseEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
+    void keyPressEvent(QKeyEvent *event);
+
+};
+
 
 }
 

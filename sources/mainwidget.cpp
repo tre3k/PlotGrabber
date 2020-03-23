@@ -12,9 +12,11 @@ using namespace Widgets;
 
 /* MAIN WIDGET */
 MainWidget::MainWidget(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, parent){
-    auto label = new QLabel("test");
-    label->setAlignment(Qt::AlignVCenter);
+    iface->main_widget = this;
+
     auto layout = new QVBoxLayout(this);
-    layout->setAlignment(Qt::AlignHCenter);
-    layout->addWidget(label);
+    //layout->setAlignment(Qt::AlignHCenter);
+
+    auto image_widget = new ImageWidget();
+    layout->addWidget(image_widget);
 }

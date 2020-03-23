@@ -15,14 +15,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     interface->setStyle(style);
     interface->main_window = this;
 
-    auto central_widget = new Widgets::CentralWidget(interface);
+    auto central_widget = new Widgets::CentralWidget(interface);            // send static interface for all widgets
 
     this->setCentralWidget(central_widget);
 
     glass_widget = new Effects::Glass(this);
     glass_widget->setVisible(false);
     glass_widget->setDuration(100);
-
 
     settings_dialog = new Dialogs::Settings(interface);
     settings_dialog->setPalette(style->getPalette());
@@ -37,6 +36,6 @@ void MainWindow::openImage(){
     fd.setPalette(interface->getStyle()->getPalette());
     showGlass();
     QString filename = fd.getOpenFileName();
-    emit fileNameChanged(filename);
+    if(filename!="") emit fileNameChanged(filename);
     hideGlass();
 }

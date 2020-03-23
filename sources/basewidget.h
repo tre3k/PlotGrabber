@@ -20,7 +20,6 @@
 
 #include "interface.h"
 
-
 namespace Widgets {
     class BaseWidget : public QWidget{
         Q_OBJECT
@@ -30,16 +29,12 @@ namespace Widgets {
         ~BaseWidget(void);
 
     protected:
-        static If::Interface *iface;                // interface for communication
-
+        static If::Interface *iface;                // interface for communication parts of program
 
     public slots:
         void setInterface(If::Interface *_iface){iface = _iface;}
 
     };
-
-
-
 }
 
 #endif

@@ -39,7 +39,7 @@ Settings::Settings(If::Interface *iface, QWidget *parent) : QDialog(parent){
     auto color_buttons = new Widgets::ColorRingButtons();
     connect(color_buttons,SIGNAL(numChanged(int)),this,SLOT(ChangeColor(int)));
     auto color_button_layout = new QHBoxLayout();
-    color_button_layout->addWidget(new QLabel("Color: "));
+    color_button_layout->addWidget(new QLabel("Interface color: "));
     color_button_layout->addStretch();
     color_button_layout->addWidget(color_buttons);
 

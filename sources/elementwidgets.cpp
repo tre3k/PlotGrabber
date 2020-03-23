@@ -236,3 +236,106 @@ void TopPanel::paintEvent(QPaintEvent *e){
     QWidget::paintEvent(e);
 }
 
+
+/* IMAGE WIDGET */
+ImageWidget::ImageWidget(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface,parent){
+    iface->image_widget = this;
+    connect(iface->main_window,SIGNAL(fileNameChanged(QString)),this,SLOT(setImage(QString)));
+    this->setMinimumSize(200,100);
+    installEventFilter(this);
+    setFocusPolicy(Qt::ClickFocus);         // for keys from keyboard
+
+    cursor = Darwings::Cursor(this);
+    cursor.setPos(width()/2,height()/2);
+
+    updateDarwingElements();
+    connect(iface,SIGNAL(updated()),this,SLOT(updateDarwingElements()));
+
+}
+
+void ImageWidget::setImage(QString filename){
+    _pixmap = QPixmap(filename);
+    update();
+}
+
+void ImageWidget::paintEvent(QPaintEvent *e){
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing,true);
+
+    painter.drawPixmap(0,0,width()+100,height()+100,_pixmap);
+
+    cursor.paint(&painter);
+
+    QWidget::paintEvent(e);
+}
+
+void ImageWidget::mousePressEvent(QMouseEvent *e){
+    cursor.setPos(e->localPos().x(), e->localPos().y());
+    update();
+}
+
+void ImageWidget::mouseMoveEvent(QMouseEvent *e){
+    cursor.setPos(e->localPos().x(), e->localPos().y());
+    update();
+}
+
+void ImageWidget::keyPressEvent(QKeyEvent *event){
+    switch(event->key()){
+    case Qt::Key_Up:
+        cursor.setPos(cursor.getX(),cursor.getY()-1);
+        break;
+    case Qt::Key_Down:
+        cursor.setPos(cursor.getX(),cursor.getY()+1);
+        break;
+    case Qt::Key_Right:
+        cursor.setPos(cursor.getX()+1,cursor.getY());
+        break;
+    case Qt::Key_Left:
+        cursor.setPos(cursor.getX()-1,cursor.getY());
+        break;
+    }
+}
+
+bool ImageWidget::eventFilter(QObject *watched, QEvent *event){
+    if(watched==this){
+        switch(event->type()){
+        case QEvent::Enter:
+
+            break;
+
+        case QEvent::Leave:
+
+            break;
+
+        case QEvent::MouseButtonPress:
+
+            break;
+
+        case QEvent::MouseButtonRelease:
+
+            break;
+
+        case QEvent::MouseMove:
+
+            break;
+
+        default:
+            // just for minimisate warnings at the moment compilation
+            break;
+        }
+    }
+    return QWidget::eventFilter(watched, event);
+}
+
+void ImageWidget::updateDarwingElements(){
+    QPen pen_line;
+    QPen pen_point;
+
+    pen_point.setWidth(5);
+    pen_line.setStyle(Qt::DashLine);
+
+    pen_point.setColor("red");
+
+    cursor.setPenLine(pen_line);
+    cursor.setPenPoint(pen_point);
+}

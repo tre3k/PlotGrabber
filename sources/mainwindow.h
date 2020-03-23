@@ -43,8 +43,6 @@ public slots:
     void showSettings(void){
         showGlass();
         settings_dialog->setGeometry(x(),y(),300,400);
-
-        qDebug() << x() << " : " << y();
         settings_dialog->show();
     }
     void hideSettings(int result){
@@ -63,7 +61,6 @@ signals:
 };
 
 
-
 namespace Widgets {
 
 /* CENTRAL WIDGET */
@@ -75,6 +72,7 @@ public:
         auto top_panel = new TopPanel(_iface);
         auto main_widget = new MainWidget(_iface);
 
+        /* place top panel and main widget */
         top_panel->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Maximum);
         main_widget->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding);
 
