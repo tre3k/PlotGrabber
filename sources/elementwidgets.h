@@ -8,6 +8,8 @@
 #ifndef ELEMENTWIDGETS_H
 #define ELEMENTWIDGETS_H
 
+#include <QFileInfo>
+
 #include "basewidget.h"
 
 namespace Widgets {
@@ -234,7 +236,7 @@ private:
 public slots:
     void updatePixmapsOnButtons(void);
     void setFileNameLabel(QString filename){
-        filename_label->setText("<h4>"+filename+"</h4>");
+        filename_label->setText("<h4>"+QFileInfo(filename).fileName()+"</h4>");
     }
 };
 

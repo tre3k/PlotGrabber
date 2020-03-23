@@ -214,8 +214,7 @@ TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, 
     layout->addStretch();
 
     connect(iface,SIGNAL(updated()),this,SLOT(updatePixmapsOnButtons()));
-
-    setFileNameLabel("Filename.123");
+    connect(iface->main_window,SIGNAL(fileNameChanged(QString)),this,SLOT(setFileNameLabel(QString)));
 }
 
 void TopPanel::updatePixmapsOnButtons(){

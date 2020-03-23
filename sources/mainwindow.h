@@ -58,6 +58,8 @@ public slots:
 
     void openImage(void);
 
+signals:
+    void fileNameChanged(QString filename);
 };
 
 

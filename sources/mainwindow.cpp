@@ -32,10 +32,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     connect(interface,SIGNAL(updated()),this,SLOT(updatePalette()));
 }
 
-
-
 void MainWindow::openImage(){
     QFileDialog fd;
     fd.setPalette(interface->getStyle()->getPalette());
-    fd.getOpenFileName();
+    showGlass();
+    QString filename = fd.getOpenFileName();
+    emit fileNameChanged(filename);
+    hideGlass();
 }
