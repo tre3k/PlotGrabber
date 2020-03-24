@@ -208,10 +208,17 @@ TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, 
     connect(sett_button,SIGNAL(release()),iface->main_window,SLOT(showSettings()));
     updatePixmapsOnButtons();
 
+    about = new QLabel();
+    about->setAlignment(Qt::AlignCenter);
+    about->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    about->setOpenExternalLinks(true);
+
     layout->addWidget(open_button);
     layout->addWidget(sett_button);
     layout->addWidget(filename_label);
     layout->addStretch();
+    layout->addWidget(about);
+
 
     connect(iface,SIGNAL(updated()),this,SLOT(updatePixmapsOnButtons()));
     connect(iface->main_window,SIGNAL(fileNameChanged(QString)),this,SLOT(setFileNameLabel(QString)));
@@ -223,6 +230,11 @@ void TopPanel::updatePixmapsOnButtons(){
 }
 
 void TopPanel::paintEvent(QPaintEvent *e){
+    about->setText("<b>PlotGrabber v1.0</b>"
+                       "<br>GNU GPLv3 <a "
+                       "href=\"https://github.com/tre3k/PlotGrabber\""
+                       "style=\"color: "+iface->getStyle()->buttonBorderColor().name()+";\">GitHub</a>");
+
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing,false);
     QPen pen;
@@ -245,10 +257,13 @@ ImageWidget::ImageWidget(If::Interface *_iface, QWidget *parent) : BaseWidget(_i
     installEventFilter(this);
     setFocusPolicy(Qt::ClickFocus);         // for keys from keyboard
 
+    /* darws cursor and borders */
     cursor = Darwings::Cursor(this);
     cursor.setPos(width()/2,height()/2);            // default
     top_right_border = Darwings::TopRightBorder(this);
-    top_right_border.setPos(100,200);
+    top_right_border.setPos(this->width()-10,10);
+    bottom_left_border = Darwings::BottomLeftBorder(this);
+    bottom_left_border.setPos(10,this->height()-10);
 
     updateDarwingElements();
     connect(iface,SIGNAL(updated()),this,SLOT(updateDarwingElements()));
@@ -267,37 +282,86 @@ void ImageWidget::paintEvent(QPaintEvent *e){
     //painter.drawPixmap(0,0,width()+100,height()+100,_pixmap);
     painter.drawPixmap(0,0,width(),height(),_pixmap);
 
-    cursor.paint(&painter);
+
     top_right_border.paint(&painter);
+    bottom_left_border.paint(&painter);
+    cursor.paint(&painter);
 
     QWidget::paintEvent(e);
 }
 
 void ImageWidget::mousePressEvent(QMouseEvent *e){
-    cursor.setPos(e->localPos().x(), e->localPos().y());
+    w_mode = CURSOR_MODE;
+    if(e->pos().x() >= top_right_border.getX() ||
+       e->pos().y() <= top_right_border.getY()){
+        w_mode = BORDER_RT_MODE;
+    }
+    if(e->pos().x() <= bottom_left_border.getX() ||
+       e->pos().y() >= bottom_left_border.getY()){
+        w_mode = BORDER_LB_MODE;
+    }
+
+    switch(w_mode){
+    case CURSOR_MODE:
+        cursor.setPos(e->localPos().x(), e->localPos().y());
+        break;
+    case BORDER_RT_MODE:
+        top_right_border.setPos(e->localPos().x(), e->localPos().y());
+        break;
+    case BORDER_LB_MODE:
+        bottom_left_border.setPos(e->localPos().x(), e->localPos().y());
+        break;
+
+    }
     update();
 }
 
 void ImageWidget::mouseMoveEvent(QMouseEvent *e){
-    cursor.setPos(e->localPos().x(), e->localPos().y());
+    switch(w_mode){
+    case CURSOR_MODE:
+        cursor.setPos(e->localPos().x(), e->localPos().y());
+        break;
+    case BORDER_RT_MODE:
+        top_right_border.setPos(e->localPos().x(), e->localPos().y());
+        break;
+    case BORDER_LB_MODE:
+        bottom_left_border.setPos(e->localPos().x(), e->localPos().y());
+        break;
+    }
     update();
 }
 
-void ImageWidget::keyPressEvent(QKeyEvent *event){
+void ImageWidget::keyPressEvent(QKeyEvent *event){  
+    Darwings::Abstract *dw_a = nullptr;
+    switch(w_mode){
+    case CURSOR_MODE:
+        dw_a = &cursor;
+        break;
+    case BORDER_RT_MODE:
+        dw_a = &top_right_border;
+        break;
+    case BORDER_LB_MODE:
+        dw_a = &bottom_left_border;
+        break;
+    default:
+        return;
+    }
+
     switch(event->key()){
     case Qt::Key_Up:
-        cursor.setPos(cursor.getX(),cursor.getY()-1);
+        dw_a->setPos(dw_a->getX(),dw_a->getY()-1);
         break;
     case Qt::Key_Down:
-        cursor.setPos(cursor.getX(),cursor.getY()+1);
+        dw_a->setPos(dw_a->getX(),dw_a->getY()+1);
         break;
     case Qt::Key_Right:
-        cursor.setPos(cursor.getX()+1,cursor.getY());
+        dw_a->setPos(dw_a->getX()+1,dw_a->getY());
         break;
     case Qt::Key_Left:
-        cursor.setPos(cursor.getX()-1,cursor.getY());
+        dw_a->setPos(dw_a->getX()-1,dw_a->getY());
         break;
     }
+    update();
 }
 
 bool ImageWidget::eventFilter(QObject *watched, QEvent *event){
@@ -342,9 +406,13 @@ void ImageWidget::updateDarwingElements(){
     cursor.setPenPoint(cursor_pen_point);
 
     /* top_right */
-    QPen top_right_pen;
-    top_right_pen.setColor("black");
-    top_right_pen.setWidth(1);
-    top_right_border.setPenLine(top_right_pen);
+    QPen border_pen;
+    QBrush border_brush = QBrush(QColor("#80000000"));
+    border_pen.setColor("black");
+    border_pen.setWidth(1);
+    top_right_border.setPenLine(border_pen);
+    top_right_border.setBrush(border_brush);
+    bottom_left_border.setPenLine(border_pen);
+    bottom_left_border.setBrush(border_brush);
 
 }

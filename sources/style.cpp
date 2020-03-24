@@ -20,7 +20,7 @@ void Style::update(){
         button_open_pixmap = QPixmap(":/icons/open_button_dark.svg");
         button_accept_pixmap = QPixmap(":/icons/accept_button_dark.svg");
 
-        front_color = QColor("#fcfcfc");
+        front_color = QColor("#ececec");
         back_color = QColor("#424242");
 
         break;
@@ -34,7 +34,7 @@ void Style::update(){
         button_open_pixmap = QPixmap(":/icons/open_button_light.svg");
         button_accept_pixmap = QPixmap(":/icons/accept_button_light.svg");
 
-        front_color = QColor("#222222");
+        front_color = QColor("#323232");
         back_color = QColor("#e7e7e7");
 
         break;
@@ -55,5 +55,6 @@ void Style::update(){
     /* set Palette */
     palette.setColor(QPalette::WindowText,front_color);
     palette.setColor(QPalette::Window,back_color);
-
+    palette.setColor(QPalette::Link,second_style);
+    palette.setColor(QPalette::LinkVisited,second_style);
 }

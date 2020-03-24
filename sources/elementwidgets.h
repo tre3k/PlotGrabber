@@ -234,6 +234,7 @@ private:
     RingButton *open_button;
     RingButton *sett_button;
     QLabel *filename_label;
+    QLabel *about;
     void paintEvent(QPaintEvent *e);
 
 public slots:
@@ -251,6 +252,10 @@ private:
     QPixmap _pixmap;
     Darwings::Cursor cursor;
     Darwings::TopRightBorder top_right_border;
+    Darwings::BottomLeftBorder bottom_left_border;
+
+    enum WorkMode{CURSOR_MODE,BORDER_RT_MODE,BORDER_LB_MODE,ZOOM_MODE};
+    WorkMode w_mode = CURSOR_MODE;
 
 public:
     ImageWidget(If::Interface *_iface = nullptr, QWidget *parent = nullptr);
@@ -258,6 +263,7 @@ public:
 public slots:
     void setImage(QString filename);
     void updateDarwingElements(void);
+    void setMode(ImageWidget::WorkMode _w_mode){w_mode = _w_mode;}
 
 protected:
     void paintEvent(QPaintEvent *e);

@@ -37,9 +37,6 @@ private:
     QColor button_color;
     QColor button_color_alpha;
 
-    QColor back_color;
-    QColor front_color;
-
     QPixmap button_close_pixmap;
     QPixmap button_setting_pixmap;
     QPixmap button_open_pixmap;
@@ -48,6 +45,11 @@ private:
     QColor top_panel_background;
     QColor top_panel_border_color;
 
+
+    /* for palette */
+    QColor back_color;
+    QColor front_color;
+    //QColor link_color;            //just second style color
 
 public:
     Style(BaseStyle _base_style,SecondStyle _second_style): base_style{_base_style},second_style {_second_style}{}
