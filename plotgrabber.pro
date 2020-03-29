@@ -15,7 +15,8 @@ SOURCES  =   sources/main.cpp \
              sources/mainwidget.cpp \
              sources/elementwidgets.cpp \
              sources/settingdialog.cpp \
-             sources/darwingelements.cpp
+             sources/darwingelements.cpp \
+             sources/calculation.cpp
 
 HEADERS  =   sources/mainwindow.h \
              sources/basewidget.h \
@@ -25,6 +26,7 @@ HEADERS  =   sources/mainwindow.h \
              sources/mainwidget.h \
              sources/elementwidgets.h \
              sources/settingdialog.h \
-             sources/darwingelements.h
+             sources/darwingelements.h \
+             sources/calculation.h
 
 RESOURCES += resources.qrc

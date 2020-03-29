@@ -38,22 +38,29 @@ class Cursor : public Abstract{
 private:
     QPen pen_line;
     QPen pen_point;
+    QPen pen_text;
 
 public:
     Cursor(Widgets::BaseWidget *wd = nullptr) : Abstract(wd) {pen_point.setWidth(3);}
 
     void paint(QPainter *p) override {
+        paintd(p,_x,_y);
+    }
+
+    void paintd(QPainter *p, qreal text_val_x, qreal text_val_y) {
         update_absolute();
         p->setPen(pen_line);
         p->drawLine(_ax,0,_ax,_wd->height());
         p->drawLine(0,_ay,_wd->width(),_ay);
         p->setPen(pen_point);
         p->drawPoint(_ax,_ay);
-        p->drawText(_ax+2,_wd->height(),QString::number(_x));
-        p->drawText(0,_ay-2,QString::number(_y));
+        p->setPen(pen_text);
+        p->drawText(_ax+2,_wd->height(),QString::number(text_val_x));
+        p->drawText(0,_ay-2,QString::number(text_val_y));
     }
     void setPenPoint(QPen pen){pen_point = pen;}
     void setPenLine(QPen pen){pen_line = pen;}
+    void setPenText(QPen pen){pen_text = pen;}
 };
 
 

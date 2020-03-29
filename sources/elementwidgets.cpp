@@ -399,11 +399,15 @@ void ImageWidget::updateDarwingElements(){
     /* for cursor */
     QPen cursor_pen_line;
     QPen cursor_pen_point;
+    QPen cursor_pen_text;
     cursor_pen_point.setWidth(5);
     cursor_pen_line.setStyle(Qt::DashLine);
     cursor_pen_point.setColor("red");
     cursor.setPenLine(cursor_pen_line);
     cursor.setPenPoint(cursor_pen_point);
+    cursor_pen_text.setColor("red");
+    cursor.setPenText(cursor_pen_text);
+
 
     /* top_right */
     QPen border_pen;
@@ -414,5 +418,6 @@ void ImageWidget::updateDarwingElements(){
     top_right_border.setBrush(border_brush);
     bottom_left_border.setPenLine(border_pen);
     bottom_left_border.setBrush(border_brush);
+
 
 }
