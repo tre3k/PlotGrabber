@@ -11,6 +11,7 @@
 #include <QFileInfo>
 #include <QEvent>
 #include <QMouseEvent>
+#include <QDoubleSpinBox>
 
 #include "basewidget.h"
 #include "darwingelements.h"
@@ -244,6 +245,16 @@ public slots:
     }
 };
 
+/* INPUT NUMBER */
+class InputNumber : public BaseWidget{
+    Q_OBJECT
+private:
+    int _width = 75, _height = 25;
+protected:
+    void paintEvent(QPaintEvent *event);
+public:
+    InputNumber(If::Interface *_iface = nullptr, QWidget *parent = nullptr);
+};
 
 /* IMAGE WIDGET */
 class ImageWidget : public BaseWidget{
@@ -253,6 +264,11 @@ private:
     Darwings::Cursor cursor;
     Darwings::TopRightBorder top_right_border;
     Darwings::BottomLeftBorder bottom_left_border;
+
+    InputNumber *input_min_x;
+    InputNumber *input_max_x;
+    InputNumber *input_min_y;
+    InputNumber *input_max_y;
 
     enum WorkMode{CURSOR_MODE,BORDER_RT_MODE,BORDER_LB_MODE,ZOOM_MODE};
     WorkMode w_mode = CURSOR_MODE;

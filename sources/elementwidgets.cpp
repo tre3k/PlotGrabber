@@ -218,6 +218,7 @@ TopPanel::TopPanel(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface, 
     layout->addWidget(filename_label);
     layout->addStretch();
     layout->addWidget(about);
+    layout->addSpacing(10);
 
 
     connect(iface,SIGNAL(updated()),this,SLOT(updatePixmapsOnButtons()));
@@ -248,6 +249,24 @@ void TopPanel::paintEvent(QPaintEvent *e){
     QWidget::paintEvent(e);
 }
 
+/* INPUT WIDGET */
+InputNumber::InputNumber(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface,parent){
+    this->setMinimumHeight(_height+1);
+    this->setMinimumWidth(_width+1);
+    this->setGeometry(0,0,_width,_height);
+
+    //auto layout = new QHBoxLayout(this);
+    auto spin_box = new QDoubleSpinBox(this);
+    spin_box->setGeometry(this->geometry());
+    //layout->addWidget(spin_box);
+
+}
+
+void InputNumber::paintEvent(QPaintEvent *event){
+    QPainter painter(this);
+
+    painter.drawRect(0,0,_width,_height);
+}
 
 /* IMAGE WIDGET */
 ImageWidget::ImageWidget(If::Interface *_iface, QWidget *parent) : BaseWidget(_iface,parent){
@@ -268,6 +287,12 @@ ImageWidget::ImageWidget(If::Interface *_iface, QWidget *parent) : BaseWidget(_i
     updateDarwingElements();
     connect(iface,SIGNAL(updated()),this,SLOT(updateDarwingElements()));
 
+
+    input_max_x = new InputNumber(iface,this);
+    input_min_x = new InputNumber(iface,this);
+    input_max_y = new InputNumber(iface,this);
+    input_min_y = new InputNumber(iface,this);
+
 }
 
 void ImageWidget::setImage(QString filename){
@@ -282,10 +307,19 @@ void ImageWidget::paintEvent(QPaintEvent *e){
     //painter.drawPixmap(0,0,width()+100,height()+100,_pixmap);
     painter.drawPixmap(0,0,width(),height(),_pixmap);
 
-
     top_right_border.paint(&painter);
     bottom_left_border.paint(&painter);
     cursor.paint(&painter);
+
+    input_max_x->setGeometry(top_right_border.getX()-input_max_x->geometry().width(),
+                             bottom_left_border.getY()-input_max_x->geometry().height(),
+                             input_max_x->geometry().width(), input_max_x->geometry().height());
+    input_min_x->setGeometry(bottom_left_border.getX(),bottom_left_border.getY()-input_max_x->geometry().height(),
+                             input_max_x->geometry().width(), input_max_x->geometry().height());
+    input_max_y->setGeometry(bottom_left_border.getX(),top_right_border.getY(),
+                             input_max_y->geometry().width(),input_max_y->geometry().height());
+    input_min_y->setGeometry(bottom_left_border.getX(),bottom_left_border.getY()-input_min_x->geometry().height()-input_min_y->geometry().height(),
+                             input_min_y->geometry().height(),input_min_y->geometry().width());
 
     QWidget::paintEvent(e);
 }
