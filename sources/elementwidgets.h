@@ -15,6 +15,7 @@
 
 #include "basewidget.h"
 #include "darwingelements.h"
+#include "calculation.h"
 
 namespace Widgets {
 
@@ -250,10 +251,12 @@ class InputNumber : public BaseWidget{
     Q_OBJECT
 private:
     int _width = 75, _height = 25;
+    QDoubleSpinBox *spin_box;
 protected:
     void paintEvent(QPaintEvent *event);
 public:
     InputNumber(If::Interface *_iface = nullptr, QWidget *parent = nullptr);
+    double getValue(void);
 };
 
 /* IMAGE WIDGET */
@@ -272,6 +275,8 @@ private:
 
     enum WorkMode{CURSOR_MODE,BORDER_RT_MODE,BORDER_LB_MODE,ZOOM_MODE};
     WorkMode w_mode = CURSOR_MODE;
+
+    Calc::Calculation *calculate;
 
 public:
     ImageWidget(If::Interface *_iface = nullptr, QWidget *parent = nullptr);

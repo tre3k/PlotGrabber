@@ -256,8 +256,9 @@ InputNumber::InputNumber(If::Interface *_iface, QWidget *parent) : BaseWidget(_i
     this->setGeometry(0,0,_width,_height);
 
     //auto layout = new QHBoxLayout(this);
-    auto spin_box = new QDoubleSpinBox(this);
+    spin_box = new QDoubleSpinBox(this);
     spin_box->setGeometry(this->geometry());
+    spin_box->setRange(-9999,9999);
     //layout->addWidget(spin_box);
 
 }
@@ -266,6 +267,10 @@ void InputNumber::paintEvent(QPaintEvent *event){
     QPainter painter(this);
 
     painter.drawRect(0,0,_width,_height);
+}
+
+double InputNumber::getValue(){
+    return spin_box->value();
 }
 
 /* IMAGE WIDGET */
@@ -293,6 +298,9 @@ ImageWidget::ImageWidget(If::Interface *_iface, QWidget *parent) : BaseWidget(_i
     input_max_y = new InputNumber(iface,this);
     input_min_y = new InputNumber(iface,this);
 
+    calculate = new Calc::Calculation(&cursor);
+    calculate->setBorders(&top_right_border,&bottom_left_border);
+
 }
 
 void ImageWidget::setImage(QString filename){
@@ -309,7 +317,9 @@ void ImageWidget::paintEvent(QPaintEvent *e){
 
     top_right_border.paint(&painter);
     bottom_left_border.paint(&painter);
-    cursor.paint(&painter);
+    calculate->setBordersValues(input_min_x->getValue(),input_max_x->getValue(),
+                          input_min_y->getValue(),input_max_y->getValue());
+    cursor.paintd(&painter,calculate->getValX(),calculate->getValY());
 
     input_max_x->setGeometry(top_right_border.getX()-input_max_x->geometry().width(),
                              bottom_left_border.getY()-input_max_x->geometry().height(),

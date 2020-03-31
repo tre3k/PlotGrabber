@@ -5,6 +5,9 @@
  *
  */
 
+#ifndef DARWINGELEMENTS_H
+#define DARWINGELEMENTS_H
+
 #include "basewidget.h"
 
 namespace Darwings {
@@ -116,3 +119,6 @@ public:
 };
 
 }
+
+#endif // DARWINGELEMENTS_H
+
